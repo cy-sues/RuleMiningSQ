@@ -1,0 +1,106 @@
+dialect  "mvel"
+import drools.Triple
+//A is failure of B y  Constraint：（1：0）;A is belong to B【0 ：0】
+rule "c1"
+    when
+        Triple($x:Head_entity,relation == "FAL",$y:Tail_entity)
+        Triple(Head_entity==$y,relation== "BEL",$z:Tail_entity)
+    then
+        t1=new Triple($x,"这故障类型所引发的设备名称是",$y);
+        t2 = new Triple($x,"这引发失败的设备溯源属于设备",$z);
+        insert(t1);
+        insert(t2);
+     end
+
+//A is unnormal state of B [5 ：0];A is belong to B【0 ：0】
+rule "c2"
+    when
+        Triple($x:Head_entity,relation == "UNS",$y:Tail_entity)
+        Triple(Head_entity==$y,relation== "BEL",$z:Tail_entity)
+    then
+        t1=new Triple($x,"这异常状态所引发的设备是",$y);
+        t2 = new Triple($x,"这引发异常状态的设备溯源属于设备",$z);
+        insert(t1);
+        insert(t2);
+    end
+
+//A is unnormal state of B [5 ：2];      A is attribute of B	ATTR	【2 ：0】
+
+rule "c3"
+    when
+        Triple($x:Head_entity,relation == "UNS",$y:Tail_entity)
+        Triple(Head_entity==$y,relation == "ATTR",$z:Tail_entity)
+    then
+        //t1=new Triple($x,"这异常状态的属性信息是",$y);
+        t1=new Triple($y,"的故障现象表现为：",$x);
+        t2 = new Triple($x,"这引发异常状态的属性信息属于设备",$z);
+        insert(t1);
+        insert(t2);
+    end
+
+//动作推理
+//A is failure of B y  Constraint：（1：0）；A is operation of B Constraint：（3：0）
+//rule "c4"
+//    when
+//     Triple($x:Head_entity,relation == "FAL",$y:Tail_entity)
+//     Triple($z:Head_entity,relation== "OPT",Tail_entity== $y)
+//    then
+//        t =new Triple($x,"这故障类型经过推理可能来自于错误操作",$z);
+//        insert(t)
+//    end
+//
+////A is failure of B y  Constraint：（1：0）；A is operation of B Constraint：（3：0）; A is pre-step of B Constraint：（3：3）
+//rule "c5"
+//    when
+//     Triple($x:Head_entity,relation == "FAL",$y:Tail_entity)
+//     Triple($z:Head_entity,relation== "OPT",Tail_entity== $y)
+//     Triple($q:Head_entity,relation== "PST",Tail_entity== $z)
+//    then
+//        t =new Triple($x,"这故障类型经过推理可能来自于上一步错误操作",$q);
+//        insert(t)
+//    end
+
+//rule "c6"
+//    when
+//     Triple($x:Head_entity,relation == "FAL",$y:Tail_entity)
+//     Triple($z:Head_entity,relation== "OPT",Tail_entity== $y)
+//     Triple($q:Head_entity,relation== "PST",Tail_entity== $z)
+//     Triple($p:Head_entity,relation== "PST",Tail_entity== $q)
+//    then
+//        t =new Triple($x,"这故障类型经过推理可能来自于上两步错误操作",$p);
+//        insert(t)
+//    end
+
+//A is unnormal state of B [5 ：0];A is operation of B Constraint：（3：0）
+//rule "c7"
+//    when
+//        Triple($x:Head_entity,relation == "UNS",$y:Tail_entity)
+//        Triple($z:Head_entity,relation== "OPT",Tail_entity== $y)
+//    then
+//        t =new Triple($x,"这异常状态经过推理可能来自于错误操作",$z);
+//        insert(t)
+//    end
+//
+////A is unnormal state of B [5 ：0];A is operation of B Constraint：（3：0）；A is pre-step of B Constraint：（3：3）
+//rule "c8"
+//    when
+//        Triple($x:Head_entity,relation == "UNS",$y:Tail_entity)
+//        Triple($z:Head_entity,relation== "OPT",Tail_entity== $y)
+//        Triple($q:Head_entity,relation== "PST",Tail_entity== $z)
+//    then
+//        t =new Triple($x,"这异常状态经过推理可能来自于上一步错误操作",$q);
+//        insert(t)
+//    end
+
+
+
+//rule "c9"
+//    when
+//        Triple($x:Head_entity,relation == "UNS",$y:Tail_entity)
+//        Triple($z:Head_entity,relation== "OPT",Tail_entity== $y)
+//        Triple($q:Head_entity,relation== "PST",Tail_entity== $z)
+//        Triple($p:Head_entity,relation== "PST",Tail_entity== $q)
+//    then
+//        t =new Triple($x,"这异常状态经过推理可能来自于上两步错误操作",$p);
+//        insert(t)
+//    end

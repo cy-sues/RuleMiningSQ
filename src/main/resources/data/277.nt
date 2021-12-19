@@ -1,0 +1,5 @@
+机床 BEL CSSCBOP90D  .
+喷水漏液 FAL 机床 .
+开启 OPT 机床 .
+破损 FAL 罩壳 .
+罩壳 BEL 破损 .

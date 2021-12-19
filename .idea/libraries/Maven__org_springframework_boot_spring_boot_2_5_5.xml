@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework.boot:spring-boot:2.5.5">
+    <CLASSES>
+      <root url="jar://Y:/app_content/apache-maven-3.5.2/local-resource/org/springframework/boot/spring-boot/2.5.5/spring-boot-2.5.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://Y:/app_content/apache-maven-3.5.2/local-resource/org/springframework/boot/spring-boot/2.5.5/spring-boot-2.5.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://Y:/app_content/apache-maven-3.5.2/local-resource/org/springframework/boot/spring-boot/2.5.5/spring-boot-2.5.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
