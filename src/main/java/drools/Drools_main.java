@@ -33,6 +33,7 @@ public class Drools_main {
         min1.add("NewRole");
         resultList.add(min1);
         min1=new ArrayList();//初始化
+        long newT;
         // 读取实例数据
         for(int i=1;i<=590;i++){
 
@@ -55,6 +56,7 @@ public class Drools_main {
 //        outpuztTriples(kSession);
             ArrayList<String> triples1=new ArrayList<String>();
             Object[] a =kSession.getObjects().toArray();
+            long k=kSession.getObjects().toArray().length;
             for (Object o:a)
             {
                 String r=o.toString();
@@ -62,16 +64,18 @@ public class Drools_main {
 //                System.out.println(r);
             }
             long startTime = System.currentTimeMillis();
+
             System.out.println("new new Execute..."+i+"******************************************************");
             // 使规则引擎执行规则
             kSession.fireAllRules();
             long endTime = System.currentTimeMillis();
             long runningTime = endTime - startTime;
+            long newTriple = kSession.getObjects().toArray().length-k;
 
             // 输出推理后的三元组及数量
-            System.out.println("Facts num after reasoning: " + kSession.getObjects().toArray().length);
+            System.out.println("Facts num after reasoning: " + newTriple);
             System.out.println("Facts After Reasoning:");
-            min1.add(kSession.getObjects().toArray().length);//
+            min1.add(newTriple);//
             ArrayList<String> triples2=new ArrayList<String>();
             Object[] b =kSession.getObjects().toArray();
             for (Object o:b)
@@ -93,6 +97,7 @@ public class Drools_main {
             {
                 System.out.println(++n+": "+s);
             }
+
         }
         //创建一个EXCEL
         Workbook wb = new HSSFWorkbook();
@@ -111,7 +116,7 @@ public class Drools_main {
                 }
             }
         }
-        FileOutputStream fileOut = new FileOutputStream("Y:\\data2.xls");
+        FileOutputStream fileOut = new FileOutputStream("Y:\\data6.xls");
         wb.write(fileOut);
         fileOut.close();
     }
